@@ -19,7 +19,7 @@ body { font-family: Arial, sans-serif; background: #EEEEEE; min-height: 100vh; }
 const { useState, useEffect, useRef } = React;
 
 const C = { pink:"#FF005E", black:"#000000", white:"#FFFFFF", gray:"#999999", lightGray:"#EEEEEE", lightPink:"#FFDCE9" };
-const CATEGORIES = ["KYC","Investoren / Zeichneranfrage","Wirtschaftsprüfer","Portfolio","Intern","Sonstiges"];
+const CATEGORIES = ["KYC","Investoren / Zeichneranfrage","Wirtschaftsprüfer","Verwahrstelle","Portfolio","Intern","Sonstiges"];
 const TEAM = ["Philipp Joggerst","Joachim Masurek","Kerstin Pfleger","Nils Berger","Kurt Weise","Daniel Seiler","Juanse Cordovez","Lucia Otero"];
 
 // ─── Storage via Anthropic Persistent Storage API ─────────────────────────────
@@ -69,7 +69,7 @@ async function callClaude(system, user) {
 async function aiAnalyze(subject, body) {
   const raw = await callClaude(
     `Du bist Ticket-System für LEA Partners (Private Equity, DACH). Antworte NUR mit JSON (kein Markdown):
-{"summary":"1-2 Sätze DE","category":"KYC|Investoren / Zeichneranfrage|Wirtschaftsprüfer|Portfolio|Intern|Sonstiges","priority":"High|Medium|Low","suggestedAssignee":"Philipp Joggerst|Joachim Masurek|Kerstin Pfleger|Nils Berger|Kurt Weise|Daniel Seiler|Juanse Cordovez|Lucia Otero","deadline":"ISO-Datum falls in der Mail erkennbar, sonst null"}`,
+{"summary":"1-2 Sätze DE","category":"KYC|Investoren / Zeichneranfrage|Wirtschaftsprüfer|Verwahrstelle|Portfolio|Intern|Sonstiges","priority":"High|Medium|Low","suggestedAssignee":"Philipp Joggerst|Joachim Masurek|Kerstin Pfleger|Nils Berger|Kurt Weise|Daniel Seiler|Juanse Cordovez|Lucia Otero","deadline":"ISO-Datum falls in der Mail erkennbar, sonst null"}`,
     `Betreff: ${subject}\n\n${body}`
   );
   try { return JSON.parse(raw.replace(/```json|```/g,"").trim()); }
